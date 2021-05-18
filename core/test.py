@@ -12,7 +12,7 @@ import awshelpers
 
 #Vars
 fmt = '%Y-%m-%d_%I%M%p_pst'
-now_pst = astimezone(pytz.timezone('US/Pacific'))
+now_pst = datetime.now(pytz.timezone('US/Pacific'))
 currenttime = now_pst.strftime('%Y-%m-%d_%I%M%p_pst')
 
 # now = datetime.now()
@@ -34,7 +34,7 @@ print(response.status_code)
 print(response.url)
 
 #Convert Response to CSV
-directory = '/home/ec2-user/files/sea_test'
+directory = '/home/ec2-user/files/sea_test/'
 csv_name = currenttime+'_test.csv'
 csv_path = directory+csv_name
 s3_bucket = 'farin-prod-test'
