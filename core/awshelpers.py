@@ -17,4 +17,4 @@ def get_secret_value(name, version=None):
 
 def write_to_s3(s3_bucket, local_file_path, s3_file_path, file_name):
 	s3 = boto3.resource('s3')   
-	s3.Bucket(s3_bucket).upload_file(file_path,s3_file_path+file_name)
+	s3.Bucket(s3_bucket).upload_file(local_file_path,s3_file_path+file_name)
