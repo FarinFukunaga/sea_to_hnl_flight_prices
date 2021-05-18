@@ -1,0 +1,7 @@
+pandas
+requests
+csv
+json
+boto3
+base64
+re
