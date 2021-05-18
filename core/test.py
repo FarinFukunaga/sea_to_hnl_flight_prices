@@ -11,9 +11,13 @@ from botocore.exceptions import ClientError
 import awshelpers 
 
 #Vars
-now = datetime.now()
-currenttimeutc = now.strftime('%Y-%m-%d_%I%M%p_pst')
-currenttime = currenttimeutc.astimezone(pytz.timezone('US/Pacific'))
+fmt = '%Y-%m-%d_%I%M%p_pst'
+now_pst = astimezone(pytz.timezone('US/Pacific'))
+currenttime = now_pst.strftime('%Y-%m-%d_%I%M%p_pst')
+
+# now = datetime.now()
+# currenttimeutc = now.strftime('%Y-%m-%d_%I%M%p_pst')
+# currenttime = currenttimeutc.astimezone(pytz.timezone('US/Pacific'))
 
 #Quandl Call Vars
 database_code = 'FRED'
@@ -44,3 +48,5 @@ print('Wrote to local csv')
 #Write to S3
 awshelpers.write_to_s3(s3_bucket, csv_path, s3_path, csv_name)
 print('Wrote to S3')
+
+
