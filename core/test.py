@@ -1,34 +1,19 @@
 import pandas as pd
 import requests
 import csv
-import json
-# import boto3
-# import base64
-import re
-
-#import from repo
-from home.ec2-user.projects.sea_to_hnl_flight_prices.helpers import awshelpers
+#import json
+import pytz
 
 from datetime import datetime
-from pandas import json_normalize
 from botocore.exceptions import ClientError
 
-#Get secrets from secrets manager
-# def get_secret_value(name, version=None):
-#     secrets_client = boto3.client("secretsmanager")
-#     kwargs = {'SecretId': name}
-#     if version is not None:
-#         kwargs['VersionStage'] = version
-#     response = secrets_client.get_secret_value(**kwargs)
-#     secret_string = response['SecretString']
-#     secret_value_unstripped = secret_string.split(':')[1]
-#     secret_value = re.sub('"|}','',secret_value_unstripped)
-
-#     return secret_value
+#import from repo
+import awshelpers 
 
 #Vars
 now = datetime.now()
-currenttime = now.strftime('%Y-%m-%d_%I%M%p')
+currenttimeutc = now.strftime('%Y-%m-%d_%I%M%p_pst')
+currenttime = currenttimeutc.astimezone(pytz.timezone('US/Pacific'))
 
 #Quandl Call Vars
 database_code = 'FRED'
@@ -45,9 +30,11 @@ print(response.status_code)
 print(response.url)
 
 #Convert Response to CSV
-directory = 'C:\\AWS\\test_outputs\\'
+directory = '/home/ec2-user/files/sea_test'
 csv_name = currenttime+'_test.csv'
 csv_path = directory+csv_name
+s3_bucket = 'farin-prod-test'
+s3_path = 'test/'
 
 f = open(csv_path, "w")
 f.write(response.text)
@@ -55,9 +42,5 @@ f.close()
 print('Wrote to local csv')
 
 #Write to S3
-# s3 = boto3.resource('s3')   
-# s3.Bucket('farin-prod-test').upload_file(csv_path,'test/'+csv_name)
-awshelpers.write_to_s3('farin-prod-test/test/',csv_path,csv_name)
+awshelpers.write_to_s3(s3_bucket, csv_path, s3_path, csv_name)
 print('Wrote to S3')
-
-
