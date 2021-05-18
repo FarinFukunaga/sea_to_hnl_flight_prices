@@ -7,7 +7,7 @@ import json
 import re
 
 #import from repo
-from helpers import awshelpers
+from home.ec2-user.projects.sea_to_hnl_flight_prices.helpers import awshelpers
 
 from datetime import datetime
 from pandas import json_normalize
@@ -59,3 +59,5 @@ print('Wrote to local csv')
 # s3.Bucket('farin-prod-test').upload_file(csv_path,'test/'+csv_name)
 awshelpers.write_to_s3('farin-prod-test/test/',csv_path,csv_name)
 print('Wrote to S3')
+
+
