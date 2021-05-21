@@ -5,7 +5,7 @@ import awshelpers
 
 amadeus = Client(
     client_id=awshelpers.get_secret_value('amadeus_api_key'),
-    client_secret=awshelpers.get_secret_value('amadeus_api_secert')
+    client_secret=awshelpers.get_secret_value('amadeus_api_secret')
 )
 
 #Vars
