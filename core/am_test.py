@@ -20,13 +20,12 @@ departure_date = '2021-12-01'
 num_adults = 1
 
 #Call API
-try:
-    response = amadeus.shopping.flight_offers_search.get(
-        originLocationCode=origin_code,
-        destinationLocationCode=destination_code,
-        departureDate=departureDate,
-        adults=num_adults)
-except ResponseError as error:
+
+response = amadeus.shopping.flight_offers_search.get(
+    originLocationCode=origin_code,
+    destinationLocationCode=destination_code,
+    departureDate=departureDate,
+    adults=num_adults)
 
 #Convert Response to CSV
 directory = '/home/ec2-user/files/sea_test/'
