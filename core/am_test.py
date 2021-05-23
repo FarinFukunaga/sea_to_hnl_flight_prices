@@ -1,4 +1,5 @@
 import pandas as pd
+import fsspec
 #import requests
 import json
 import csv
@@ -43,14 +44,14 @@ s3_bucket = 'farin-prod-test'
 s3_path = 'test/amadeus/'
 
 json_data = json.loads(response.result)
-df = pd.json_normalize(json_data)
+df = pd.DataFrame.from_dict(json_data, orient='index')
 print(df)
 
-f = open(csv_path, "w")
-f.write(df.to_csv())
-f.close()
-print('Wrote to local csv')
+# f = open(csv_path, "w")
+# f.write(df.to_csv())
+# f.close()
+# print('Wrote to local csv')
 
 #Write to S3
-awshelpers.write_to_s3(s3_bucket, csv_path, s3_path, csv_name)
-print('Wrote to S3')
+# awshelpers.write_to_s3(s3_bucket, csv_path, s3_path, csv_name)
+# print('Wrote to S3')
