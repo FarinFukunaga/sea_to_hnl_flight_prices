@@ -1,4 +1,12 @@
+import pandas as pd
+#import requests
+import json
+import csv
+import pytz
+
 from amadeus import Client, ResponseError
+from datetime import datetime
+from botocore.exceptions import ClientError
 
 #import from repo
 import awshelpers 
@@ -24,7 +32,7 @@ num_adults = 1
 response = amadeus.shopping.flight_offers_search.get(
     originLocationCode=origin_code,
     destinationLocationCode=destination_code,
-    departureDate=departureDate,
+    departureDate=departure_date,
     adults=num_adults)
 
 #Convert Response to CSV
@@ -34,8 +42,11 @@ csv_path = directory+csv_name
 s3_bucket = 'farin-prod-test'
 s3_path = 'test/amadeus'
 
+
+df = pd.read_json(response.result)
+
 f = open(csv_path, "w")
-f.write(response.text)
+f.write(df.to_csv)
 f.close()
 print('Wrote to local csv')
 
