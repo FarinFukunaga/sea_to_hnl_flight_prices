@@ -1,5 +1,4 @@
 import pandas as pd
-import fsspec
 #import requests
 import json
 import csv
@@ -43,8 +42,8 @@ csv_path = directory+csv_name
 s3_bucket = 'farin-prod-test'
 s3_path = 'test/amadeus/'
 
-json_data = json.loads(response.result)
-df = pd.DataFrame.from_dict(json_data, orient='index')
+json_data = response.result
+df = pd.json_normalize(json_data,['data','itineraries'])
 print(df)
 
 # f = open(csv_path, "w")
