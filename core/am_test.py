@@ -37,16 +37,17 @@ response = amadeus.shopping.flight_offers_search.get(
 
 #Convert Response to CSV
 directory = '/home/ec2-user/files/sea_test/'
-csv_name = currenttime+'am_test.csv'
+csv_name = currenttime+'_am_test.csv'
 csv_path = directory+csv_name
 s3_bucket = 'farin-prod-test'
-s3_path = 'test/amadeus'
+s3_path = 'test/amadeus/'
 
-
-df = pd.read_json(response.result)
+json_data = json.loads(response.result)
+df = pd.json_normalize(json_data)
+print(df)
 
 f = open(csv_path, "w")
-f.write(df.to_csv)
+f.write(df.to_csv())
 f.close()
 print('Wrote to local csv')
 
