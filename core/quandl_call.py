@@ -12,8 +12,9 @@ from pandas import json_normalize
 from botocore.exceptions import ClientError
 
 #Vars
-now = datetime.now()
-currenttime = now.strftime('%Y-%m-%d_%I%M%p')
+fmt = '%Y-%m-%d_%I%M%p_pst'
+now_pst = datetime.now(pytz.timezone('US/Pacific'))
+currenttime = now_pst.strftime('%Y-%m-%d_%I%M%p_pst')
 
 #Quandl Call Vars
 database_code = 'FRED'
@@ -30,8 +31,8 @@ print(response.status_code)
 print(response.url)
 
 #Convert Response to CSV
-directory = 'C:\\AWS\\test_outputs\\'
-csv_name = currenttime+'_test.csv'
+directory = '/home/ec2-user/files/sea_test/'
+csv_name = currenttime+'quandl_test.csv'
 csv_path = directory+csv_name
 
 f = open(csv_path, "w")
@@ -41,6 +42,6 @@ print('Wrote to local csv')
 
 #Write to S3
 s3_bucket = 'farin-prod-test'
-s3_path = 'test/amadeus/'
+s3_path = 'test/quandl/'
 awshelpers.write_to_s3(s3_bucket,csv_path,s3_path,csv_name)
 print('Wrote to S3')
