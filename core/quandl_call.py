@@ -40,7 +40,7 @@ f.close()
 print('Wrote to local csv')
 
 #Write to S3
-# s3 = boto3.resource('s3')   
-# s3.Bucket('farin-prod-test').upload_file(csv_path,'test/'+csv_name)
-awshelpers.write_to_s3('farin-prod-test/test/quandl/',csv_path,csv_name)
+s3_bucket = 'farin-prod-test'
+s3_path = 'test/amadeus/'
+awshelpers.write_to_s3(s3_bucket,csv_path,s3_path,csv_name)
 print('Wrote to S3')
