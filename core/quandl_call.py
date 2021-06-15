@@ -1,7 +1,8 @@
 import pandas as pd
 import requests
-import csv
 import json
+import csv
+import pytz
 import re
 
 #import from repo
@@ -32,7 +33,7 @@ print(response.url)
 
 #Convert Response to CSV
 directory = '/home/ec2-user/files/sea_test/'
-csv_name = currenttime+'quandl_test.csv'
+csv_name = currenttime+'_quandl_test.csv'
 csv_path = directory+csv_name
 
 f = open(csv_path, "w")
@@ -45,3 +46,4 @@ s3_bucket = 'farin-prod-test'
 s3_path = 'test/quandl/'
 awshelpers.write_to_s3(s3_bucket,csv_path,s3_path,csv_name)
 print('Wrote to S3')
+
