@@ -4,7 +4,7 @@ import re
 
 #Get secrets from secrets manager
 def get_secret_value(name, version=None):
-    secrets_client = boto3.client("secretsmanager")
+    secrets_client = boto3.client("secretsmanager",region_name='us-west-1')
     kwargs = {'SecretId': name}
     if version is not None:
         kwargs['VersionStage'] = version
