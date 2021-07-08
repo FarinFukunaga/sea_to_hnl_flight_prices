@@ -18,7 +18,7 @@ def quandl_call():
 
 	request_quandl_api()
 
-	response_to_local_csv()
+	response_to_local_csv(request_quandl_api())
 
 	awshelpers.write_to_s3(s3_bucket,csv_path,s3_path,csv_name)
 
@@ -33,7 +33,7 @@ def request_quandl_api():
 	
 	response = requests.get(final_url)
 
-def response_to_local_csv():
+def response_to_local_csv(response):
 	fmt = '%Y-%m-%d_%I%M%p_pst'
 	now_pst = datetime.now(pytz.timezone('US/Pacific'))
 	currenttime = now_pst.strftime('%Y-%m-%d_%I%M%p_pst')
