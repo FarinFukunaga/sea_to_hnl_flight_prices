@@ -13,6 +13,9 @@ from botocore.exceptions import ClientError
 
 def quandl_call():
 
+    fmt = '%Y-%m-%d_%I%M%p_pst'
+    now_pst = datetime.now(pytz.timezone('US/Pacific'))
+    currenttime = now_pst.strftime('%Y-%m-%d_%I%M%p_pst')
     directory = '/home/ec2-user/files/sea_test/'
     csv_name = currenttime+'_quandl_test.csv'
     csv_path = directory+csv_name
@@ -37,12 +40,6 @@ def request_quandl_api():
     return requests.get(final_url)
 
 def response_to_local_csv(response,csv_path):
-    fmt = '%Y-%m-%d_%I%M%p_pst'
-    now_pst = datetime.now(pytz.timezone('US/Pacific'))
-    currenttime = now_pst.strftime('%Y-%m-%d_%I%M%p_pst')
-    #directory = '/home/ec2-user/files/sea_test/'
-    #csv_name = currenttime+'_quandl_test.csv'
-    #csv_path = directory+csv_name
     
     f = open(csv_path, "w")
     f.write(response.text)
