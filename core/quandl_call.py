@@ -39,6 +39,7 @@ def response_to_local_csv():
 	currenttime = now_pst.strftime('%Y-%m-%d_%I%M%p_pst')
 	directory = '/home/ec2-user/files/sea_test/'
 	csv_name = currenttime+'_quandl_test.csv'
+	csv_path = directory+csv_name
 	
 	f = open(csv_path, "w")
 	f.write(response.text)
@@ -68,5 +69,3 @@ def response_to_local_csv():
 
 #Run Function
 quandl_call()
-
-
