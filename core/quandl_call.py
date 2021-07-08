@@ -4,13 +4,13 @@ import json
 import csv
 import pytz
 import re
-import icecream as ic
 
 import awshelpers
 
 from datetime import datetime
 from pandas import json_normalize
 from botocore.exceptions import ClientError
+from icecream import ic
 
 def quandl_call():
 
