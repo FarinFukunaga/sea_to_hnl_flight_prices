@@ -12,7 +12,7 @@ from pandas import json_normalize
 from botocore.exceptions import ClientError
 from icecream import ic
 
-def quandl_call():
+def main():
 
     fmt = '%Y-%m-%d_%I%M%p_pst'
     now_pst = datetime.now(pytz.timezone('US/Pacific'))
@@ -41,13 +41,13 @@ def request_quandl_api():
     return requests.get(final_url)
     ic()
 
-def response_to_local_csv(response,csv_path):
-    
+def response_to_local_csv(response,csv_path):    
     f = open(csv_path, "w")
     f.write(response.text)
     f.close()
     ic()
 
 #Run Function
-quandl_call()
-ic()
+if __name__ == '__main__':
+    main()
+    ic()
